@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 use Cpanel::JSON::XS;
+use Cpanel::JSON::XS::Type;
 use Error::Pure qw(err);
 use Readonly;
 use Test::Differences qw(eq_or_diff);
@@ -25,13 +26,63 @@ sub is_json_type {
 
 	my $json_obj = Cpanel::JSON::XS->new;
 
-	my $type;
-	$json_obj->decode($json, $type);
-	my $type_expected;
-	$json_obj->decode($json_expected, $type_expected);
+	my $type_hr;
+	$json_obj->decode($json, $type_hr);
+	_readable_types($type_hr);
+	my $type_expected_hr;
+	$json_obj->decode($json_expected, $type_expected_hr);
+	_readable_types($type_expected_hr);
 
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
-	return eq_or_diff($type, $type_expected, $test_name);
+	return eq_or_diff($type_hr, $type_expected_hr, $test_name);
+}
+
+sub _readable_types {
+	my $type_r = shift;
+
+	if (ref $type_r eq 'HASH') {
+		foreach my $sub_key (keys %{$type_r}) {
+			if (ref $type_r->{$sub_key}) {
+				_readable_types($type_r->{$sub_key});
+			} else {
+				_readable_types(\$type_r->{$sub_key});
+			}
+		}
+	} elsif (ref $type_r eq 'ARRAY') {
+		foreach my $sub_type (@{$type_r}) {
+			if (ref $sub_type) {
+				_readable_types($sub_type);
+			} else {
+				_readable_types(\$sub_type);
+			}
+		}
+	} elsif (ref $type_r eq 'SCALAR') {
+		_change_type($type_r);
+	} else {
+		err "Unsupported value '$type_r'.";
+	}
+
+	return;
+}
+
+sub _change_type {
+	my $value_sr = shift;
+
+	if (${$value_sr} == JSON_TYPE_BOOL) {
+		${$value_sr} = 'JSON_TYPE_BOOL';
+	} elsif (${$value_sr} == JSON_TYPE_INT) {
+		${$value_sr} = 'JSON_TYPE_INT';
+	} elsif (${$value_sr} == JSON_TYPE_FLOAT) {
+		${$value_sr} = 'JSON_TYPE_FLOAT';
+	} elsif (${$value_sr} == JSON_TYPE_STRING) {
+		${$value_sr} = 'JSON_TYPE_STRING';
+	} elsif (${$value_sr} == JSON_TYPE_NULL) {
+		${$value_sr} = 'JSON_TYPE_NULL';
+	} else {
+		err "Unsupported value '${$value_sr}'.";
+	}
+
+	return;
 }
 
 1;
@@ -156,6 +207,7 @@ TODO
 =head1 DEPENDENCIES
 
 L<Cpanel::JSON::XS>,
+L<Cpanel::JSON::XS::Type>,
 L<Error::Pure>,
 L<Readonly>,
 L<Test::Builder::Module>,

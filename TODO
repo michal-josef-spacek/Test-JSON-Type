@@ -2,10 +2,11 @@ TODO
 ====
 1. Output for examples in doc.
 2. Tests.
-3. Better type of output structure for types.
-   2 => JSON_TYPE_BOOL etc.
 4. Add tests for parsing errors.
 5.
 
 Applied
 -------
+3. Better type of output structure for types.
+   2 => JSON_TYPE_BOOL etc.
+OK [20210224] skim
