@@ -135,16 +135,16 @@ TODO
    "float": 0.23,
    "int": 1,
    "null": null,
-   "string": "1"
+   "string": "bar"
  }
  END
  my $json_struct2 = <<'END';
  {
-   "bool": true,
-   "float": 0.23,
-   "int": 1,
+   "bool": false,
+   "float": 1.23,
+   "int": 2,
    "null": null,
-   "string": "1"
+   "string": "foo"
  }
  END
  is_json_type($json_struct1, $json_struct2, 'Structured JSON strings.');
