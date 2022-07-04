@@ -1,6 +1,5 @@
 TODO
 ====
-2. Tests.
 4. Add tests for parsing errors.
 5.
 
@@ -11,4 +10,7 @@ Applied
 OK [20210224] skim
 
 1. Output for examples in doc.
+OK [20220704] skim
+
+2. Tests.
 OK [20220704] skim
