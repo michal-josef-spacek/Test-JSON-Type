@@ -37,6 +37,26 @@ sub is_json_type {
 	return eq_or_diff($type_hr, $type_expected_hr, $test_name);
 }
 
+sub _change_type {
+	my $value_sr = shift;
+
+	if (${$value_sr} == JSON_TYPE_BOOL) {
+		${$value_sr} = 'JSON_TYPE_BOOL';
+	} elsif (${$value_sr} == JSON_TYPE_INT) {
+		${$value_sr} = 'JSON_TYPE_INT';
+	} elsif (${$value_sr} == JSON_TYPE_FLOAT) {
+		${$value_sr} = 'JSON_TYPE_FLOAT';
+	} elsif (${$value_sr} == JSON_TYPE_STRING) {
+		${$value_sr} = 'JSON_TYPE_STRING';
+	} elsif (${$value_sr} == JSON_TYPE_NULL) {
+		${$value_sr} = 'JSON_TYPE_NULL';
+	} else {
+		err "Unsupported value '${$value_sr}'.";
+	}
+
+	return;
+}
+
 sub _readable_types {
 	my $type_r = shift;
 
@@ -60,26 +80,6 @@ sub _readable_types {
 		_change_type($type_r);
 	} else {
 		err "Unsupported value '$type_r'.";
-	}
-
-	return;
-}
-
-sub _change_type {
-	my $value_sr = shift;
-
-	if (${$value_sr} == JSON_TYPE_BOOL) {
-		${$value_sr} = 'JSON_TYPE_BOOL';
-	} elsif (${$value_sr} == JSON_TYPE_INT) {
-		${$value_sr} = 'JSON_TYPE_INT';
-	} elsif (${$value_sr} == JSON_TYPE_FLOAT) {
-		${$value_sr} = 'JSON_TYPE_FLOAT';
-	} elsif (${$value_sr} == JSON_TYPE_STRING) {
-		${$value_sr} = 'JSON_TYPE_STRING';
-	} elsif (${$value_sr} == JSON_TYPE_NULL) {
-		${$value_sr} = 'JSON_TYPE_NULL';
-	} else {
-		err "Unsupported value '${$value_sr}'.";
 	}
 
 	return;
