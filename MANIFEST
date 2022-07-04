@@ -20,6 +20,7 @@ META.yml
 README
 t/Test-JSON-Type/01-use.t
 t/Test-JSON-Type/02-version.t
+t/Test-JSON-Type/03-is_json_type.t
 Type.pm
 xt/Test-JSON-Type/01-pod_coverage.t
 xt/Test-JSON-Type/02-pod.t
