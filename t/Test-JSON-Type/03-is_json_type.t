@@ -4,7 +4,7 @@ use warnings;
 use English;
 use Error::Pure::Utils qw(clean);
 use Test::JSON::Type;
-use Test::More 'tests' => 12;
+use Test::More 'tests' => 13;
 use Test::NoWarnings;
 
 # Test.
@@ -89,6 +89,19 @@ $input2 =<<'END';
 }
 END
 is_json_type($input1, $input2, 'Objects with blank array.');
+
+# Test.
+$input1 =<<'END';
+{
+	"array": ["foo", 1, true, null, 1.2345, {"key": "value"}]
+}
+END
+$input2 =<<'END';
+{
+	"array": ["bar", 2, false, null, 5.678, {"key": "value"}]
+}
+END
+is_json_type($input1, $input2, 'Objects with array with values.');
 
 # Test.
 $input1 = undef;
