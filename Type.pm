@@ -125,7 +125,11 @@ Test::JSON::Type - Test JSON data with types.
 
  is_json_type($json, $json_expected, $test_name);
 
-TODO
+This decodes C<$json> and C<$json_expected> JSON strings to Perl structure and
+return data type structure. And compare these structures, if are same.
+
+Result is success or failure of this comparison. In case of failure print
+difference in test.
 
 =head1 ERRORS
 
