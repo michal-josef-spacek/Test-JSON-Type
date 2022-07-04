@@ -5,13 +5,25 @@ SYNOPSIS
      use Test::JSON::Type;
 
      is_json_type($json, $json_expected, $test_name);
+     is_json_type_struct($json, $expected_type_hr, $test_name);
 
 SUBROUTINES
   "is_json_type"
      is_json_type($json, $json_expected, $test_name);
 
     This decodes $json and $json_expected JSON strings to Perl structure and
-    return data type structure. And compare these structures, if are same.
+    return data type structure defined by Cpanel::JSON::XS::Type. And
+    compare these structures, if are same.
+
+    Result is success or failure of this comparison. In case of failure
+    print difference in test.
+
+  "is_json_type_struct"
+     is_json_type_struct($json, $expected_type_hr, $test_name);
+
+    This decoded $json JSON string to Perl structure and return data type
+    structure defined by Cpanel::JSON::XS::Type. Compare this structure with
+    $expected_type_hr, if are same.
 
     Result is success or failure of this comparison. In case of failure
     print difference in test.
@@ -24,6 +36,10 @@ ERRORS
              Expected JSON string isn't valid.
                      Error: %s
              Expected JSON string to compare is required.
+     is_json_type_struct():
+             JSON string isn't valid.
+                     Error: %s
+             JSON string to compare is required.
 
 EXAMPLE1
      use strict;

@@ -11,7 +11,7 @@ use Error::Pure qw(err);
 use Readonly;
 use Test::Differences qw(eq_or_diff);
 
-Readonly::Array our @EXPORT => qw(is_json_type);
+Readonly::Array our @EXPORT => qw(is_json_type is_json_type_struct);
 
 our $VERSION = 0.02;
 
@@ -51,6 +51,41 @@ sub is_json_type {
 
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
 	return eq_or_diff($type_hr, $type_expected_hr, $test_name);
+}
+
+sub is_json_type_struct {
+	my ($json, $type_expected_hr, $test_name) = @_;
+
+	if (! defined $json) {
+		err 'JSON string to compare is required.';
+	}
+
+	my $test = __PACKAGE__->builder;
+	my $json_obj = Cpanel::JSON::XS->new;
+
+	my $type_hr;
+	my $json_hr = eval {
+		$json_obj->decode($json, $type_hr);
+	};
+	if ($EVAL_ERROR) {
+		err "JSON string isn't valid.",
+			'Error', $EVAL_ERROR,
+		;
+	}
+	_readable_types($type_hr);
+
+	local $Test::Builder::Level = $Test::Builder::Level + 1;
+	eval {
+		$json_obj->encode($json_hr, $type_expected_hr);
+	};
+	if ($EVAL_ERROR) {
+		$test->ok(0, $test_name);
+		$test->diag('Error: '.$EVAL_ERROR);
+		return;
+	}
+
+	$test->ok(1, $test_name);
+	return 1;
 }
 
 sub _change_type {
@@ -118,6 +153,7 @@ Test::JSON::Type - Test JSON data with types.
  use Test::JSON::Type;
 
  is_json_type($json, $json_expected, $test_name);
+ is_json_type_struct($json, $expected_type_hr, $test_name);
 
 =head1 SUBROUTINES
 
@@ -126,7 +162,19 @@ Test::JSON::Type - Test JSON data with types.
  is_json_type($json, $json_expected, $test_name);
 
 This decodes C<$json> and C<$json_expected> JSON strings to Perl structure and
-return data type structure. And compare these structures, if are same.
+return data type structure defined by L<Cpanel::JSON::XS::Type>.
+And compare these structures, if are same.
+
+Result is success or failure of this comparison. In case of failure print
+difference in test.
+
+=head2 C<is_json_type_struct>
+
+ is_json_type_struct($json, $expected_type_hr, $test_name);
+
+This decoded C<$json> JSON string to Perl structure and return data type
+structure defined by L<Cpanel::JSON::XS::Type>.
+Compare this structure with C<$expected_type_hr>, if are same.
 
 Result is success or failure of this comparison. In case of failure print
 difference in test.
@@ -140,6 +188,10 @@ difference in test.
          Expected JSON string isn't valid.
                  Error: %s
          Expected JSON string to compare is required.
+ is_json_type_struct():
+         JSON string isn't valid.
+                 Error: %s
+         JSON string to compare is required.
 
 =head1 EXAMPLE1
 
