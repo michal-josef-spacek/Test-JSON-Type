@@ -4,122 +4,106 @@ NAME
 SYNOPSIS
      use Test::JSON::Type;
 
-     # TODO
+     is_json_type($json, $json_expected, $test_name);
 
-METHODS
-  "new"
-     my $obj = Random::Day->new(%params);
+SUBROUTINES
+  "is_json_type"
+     is_json_type($json, $json_expected, $test_name);
 
-    Constructor.
-
-    *       "day"
-
-            Day.
-
-            Default value is undef.
-
-    *       "dt_from"
-
-            DateTime object from.
-
-            Default value is DateTime object for 1900 year.
-
-    *       "dt_to"
-
-            DateTime object to.
-
-            Default value is DateTime object for 2050 year.
-
-    *       "month"
-
-            Month.
-
-            Default value is undef.
-
-    *       "year"
-
-            Year.
-
-            Default value is undef.
-
-  "get"
-     my $dt = $obj->get;
-
-    Get random date defined by constructor parameters.
-
-    Returns DateTime object for date.
-
-  "random"
-     my $dt = $obj->random;
-
-    Get random date.
-
-    Returns DateTime object for date.
-
-  "random_day"
-     my $dt = $obj->random_day($day);
-
-    Get random date defined by day.
-
-    Returns DateTime object for date.
-
-  "random_day_month"
-     my $dt = $obj->random_day_month($day, $month);
-
-    Get random date defined by day and month.
-
-    Returns DateTime object for date.
-
-  "random_day_month_year"
-     my $dt = $obj->random_day_month_year($day, $month, $year);
-
-    Get date defined by day, month and year.
-
-    Returns DateTime object for date.
-
-  "random_month"
-     my $dt = $obj->random_month($month);
-
-    Get random date defined by month.
-
-    Returns DateTime object for date.
-
-  "random_month_year"
-     my $dt = $obj->random_month_year($month, $year);
-
-    Get random date defined by month and year.
-
-    Returns DateTime object for date.
-
-  "random_year"
-     my $dt = $obj->random_year($year);
-
-    Get random date defined by year.
-
-    Returns DateTime object for date.
+    TODO
 
 ERRORS
-EXAMPLE
+     is_json_type():
+             JSON string to compare is required.
+             Expected JSON string to compare is required.
+
+EXAMPLE1
      use strict;
      use warnings;
 
      use Test::JSON::Type;
+     use Test::More 'tests' => 2;
 
-     # Object.
-     my $obj = Random::Day->new;
+     my $json_blank1 = '{}';
+     my $json_blank2 = '{}';
+     is_json_type($json_blank1, $json_blank2, 'Blank JSON strings.');
 
-     # Get date.
-     my $dt = $obj->get;
+     my $json_struct1 = <<'END';
+     {
+       "bool": true,
+       "float": 0.23,
+       "int": 1,
+       "null": null,
+       "string": "bar"
+     }
+     END
+     my $json_struct2 = <<'END';
+     {
+       "bool": false,
+       "float": 1.23,
+       "int": 2,
+       "null": null,
+       "string": "foo"
+     }
+     END
+     is_json_type($json_struct1, $json_struct2, 'Structured JSON strings.');
 
-     # Print out.
-     print $dt->ymd."\n";
+     # Output:
+     # 1..2
+     # ok 1 - Blank JSON strings.
+     # ok 2 - Structured JSON strings.
 
-     # Output like:
-     # \d\d\d\d-\d\d-\d\d
+EXAMPLE2
+     use strict;
+     use warnings;
+
+     use Test::JSON::Type;
+     use Test::More 'tests' => 1;
+
+     my $json_struct_err1 = <<'END';
+     {
+       "int": 1,
+       "string": "1"
+     }
+     END
+     my $json_struct_err2 = <<'END';
+     {
+       "int": 1,
+       "string": 1
+     }
+     END
+     is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+
+     # Output:
+     # TODO
+
+EXAMPLE3
+     use strict;
+     use warnings;
+
+     use Test::JSON::Type;
+     use Test::More 'tests' => 1;
+
+     my $json_struct_err1 = <<'END';
+     {
+       "int": 1,
+       "array": ["1", 1]
+     }
+     END
+     my $json_struct_err2 = <<'END';
+     {
+       "int": 1,
+       "array": 1
+     }
+     END
+     is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+
+     # Output:
+     # TODO
 
 DEPENDENCIES
-    Class::Utils, DateTime, DateTime::Event::Random,
-    DateTime::Event::Recurrence, English, Error::Pure.
+    Cpanel::JSON::XS, Cpanel::JSON::XS::Type, Error::Pure, Readonly,
+    Test::Builder::Module, Test::Differences.
 
 SEE ALSO
     Test::JSON
