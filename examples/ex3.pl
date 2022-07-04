@@ -21,4 +21,19 @@ END
 is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
 # Output:
-# TODO
+# 1..1
+# not ok 1 - Structured JSON strings with error.
+# #   Failed test 'Structured JSON strings with error.'
+# #   at ./ex3.pl line 21.
+# # +----+--------------------------+----+-----------------------------+
+# # | Elt|Got                       | Elt|Expected                     |
+# # +----+--------------------------+----+-----------------------------+
+# # |   0|{                         |   0|{                            |
+# # *   1|  array => [              *   1|  array => 'JSON_TYPE_INT',  *
+# # *   2|    'JSON_TYPE_STRING',   *    |                             |
+# # *   3|    'JSON_TYPE_INT'       *    |                             |
+# # *   4|  ],                      *    |                             |
+# # |   5|  int => 'JSON_TYPE_INT'  |   2|  int => 'JSON_TYPE_INT'     |
+# # |   6|}                         |   3|}                            |
+# # +----+--------------------------+----+-----------------------------+
+# # Looks like you failed 1 test of 1.
