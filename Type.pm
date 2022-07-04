@@ -6,6 +6,7 @@ use warnings;
 
 use Cpanel::JSON::XS;
 use Cpanel::JSON::XS::Type;
+use English;
 use Error::Pure qw(err);
 use Readonly;
 use Test::Differences qw(eq_or_diff);
@@ -24,13 +25,28 @@ sub is_json_type {
 		err 'Expected JSON string to compare is required.';
 	}
 
+	my $test = __PACKAGE__->builder;
 	my $json_obj = Cpanel::JSON::XS->new;
 
 	my $type_hr;
-	$json_obj->decode($json, $type_hr);
+	eval {
+		$json_obj->decode($json, $type_hr);
+	};
+	if ($EVAL_ERROR) {
+		err "JSON string isn't valid.",
+			'Error', $EVAL_ERROR,
+		;
+	}
 	_readable_types($type_hr);
 	my $type_expected_hr;
-	$json_obj->decode($json_expected, $type_expected_hr);
+	eval {
+		$json_obj->decode($json_expected, $type_expected_hr);
+	};
+	if ($EVAL_ERROR) {
+		err "Expected JSON string isn't valid.",
+			'Error', $EVAL_ERROR,
+		;
+	}
 	_readable_types($type_expected_hr);
 
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
@@ -114,7 +130,11 @@ TODO
 =head1 ERRORS
 
  is_json_type():
+         JSON string isn't valid.
+                 Error: %s
          JSON string to compare is required.
+         Expected JSON string isn't valid.
+                 Error: %s
          Expected JSON string to compare is required.
 
 =head1 EXAMPLE1

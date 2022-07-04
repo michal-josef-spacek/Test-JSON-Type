@@ -14,7 +14,11 @@ SUBROUTINES
 
 ERRORS
      is_json_type():
+             JSON string isn't valid.
+                     Error: %s
              JSON string to compare is required.
+             Expected JSON string isn't valid.
+                     Error: %s
              Expected JSON string to compare is required.
 
 EXAMPLE1
