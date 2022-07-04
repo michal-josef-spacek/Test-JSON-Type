@@ -13,7 +13,7 @@ use Test::Differences qw(eq_or_diff);
 
 Readonly::Array our @EXPORT => qw(is_json_type);
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub is_json_type {
 	my ($json, $json_expected, $test_name) = @_;
@@ -297,6 +297,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
