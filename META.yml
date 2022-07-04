@@ -1,5 +1,5 @@
 ---
-abstract: 'Test JSON data with types'
+abstract: 'Test JSON data with types.'
 author:
   - 'Michal Josef Spacek <skim@cpan.org>'
 build_requires:
