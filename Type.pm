@@ -255,6 +255,7 @@ TODO
 
 L<Cpanel::JSON::XS>,
 L<Cpanel::JSON::XS::Type>,
+L<English>,
 L<Error::Pure>,
 L<Readonly>,
 L<Test::Builder::Module>,

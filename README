@@ -133,8 +133,8 @@ EXAMPLE3
      # # Looks like you failed 1 test of 1.
 
 DEPENDENCIES
-    Cpanel::JSON::XS, Cpanel::JSON::XS::Type, Error::Pure, Readonly,
-    Test::Builder::Module, Test::Differences.
+    Cpanel::JSON::XS, Cpanel::JSON::XS::Type, English, Error::Pure,
+    Readonly, Test::Builder::Module, Test::Differences.
 
 SEE ALSO
     Test::JSON
