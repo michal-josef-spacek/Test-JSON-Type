@@ -18,7 +18,7 @@ name 'Test-JSON-Type';
 perl_version 5.006002;
 readme_from 'Type.pm';
 recursive_author_tests('xt');
-requires 'Cpanel::JSON::XS' => 0;
+requires 'Cpanel::JSON::XS' => 4.05;
 requires 'Cpanel::JSON::XS::Type' => 0;
 requires 'English' => 0;
 requires 'Error::Pure' => 0;
