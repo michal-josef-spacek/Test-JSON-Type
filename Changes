@@ -1,3 +1,5 @@
+0.04
+
 0.03 2022-07-06T00:47:32+02:00
  [API change]
  - Rename is_json_type() to cmp_json_types().
