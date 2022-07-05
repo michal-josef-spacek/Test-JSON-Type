@@ -1,4 +1,7 @@
 0.03
+ [API change]
+ - Rename is_json_type() to cmp_json_types().
+ - Rename is_json_type_struct() to is_json_type().
 
 0.02 2022-07-05T19:05:07+02:00
  - Add is_json_type_struct() test subroutine.

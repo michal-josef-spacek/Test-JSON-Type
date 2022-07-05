@@ -11,7 +11,7 @@ use Test::NoWarnings;
 # Test.
 my $input_json = '{}';
 my $expected_type_hr = {};
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'Blank JSON structure and expected blank type.');
 
 # Test.
@@ -23,7 +23,7 @@ END
 $expected_type_hr = {
 	'int' => JSON_TYPE_INT,
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with integer and expected type.');
 
 # Test.
@@ -35,7 +35,7 @@ END
 $expected_type_hr = {
 	'string' => JSON_TYPE_STRING,
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with string and expected type.');
 
 # Test.
@@ -47,7 +47,7 @@ END
 $expected_type_hr = {
 	'bool' => JSON_TYPE_BOOL,
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with bool and expected type.');
 
 # Test.
@@ -59,7 +59,7 @@ END
 $expected_type_hr = {
 	'float' => JSON_TYPE_FLOAT,
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with float and expected type.');
 
 # Test.
@@ -71,7 +71,7 @@ END
 $expected_type_hr = {
 	'null' => JSON_TYPE_NULL,
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with null and expected type.');
 
 # Test.
@@ -83,7 +83,7 @@ END
 $expected_type_hr = {
 	'array' => [],
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with blank array and expected type.');
 
 # Test.
@@ -95,8 +95,9 @@ END
 $expected_type_hr = {
 	'array' => json_type_arrayof(JSON_TYPE_INT),
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with integer array and expected variable integer array type.');
+
 # Test.
 $input_json = <<'END';
 {
@@ -106,7 +107,7 @@ END
 $expected_type_hr = {
 	'array' => json_type_arrayof(JSON_TYPE_INT),
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with integer array and expected variable integer array type.');
 
 # Test.
@@ -122,7 +123,7 @@ $expected_type_hr = {
 		JSON_TYPE_INT,
 	],
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'Blank JSON structure with 3 integer array and expected strict type.');
 
 # Test.
@@ -141,14 +142,14 @@ $expected_type_hr = {
 		json_type_hashof(JSON_TYPE_STRING),
 	],
 };
-is_json_type_struct($input_json, $expected_type_hr,
+is_json_type($input_json, $expected_type_hr,
 	'JSON structure with complex array and expected type.');
 
 # Test.
 $input_json = undef;
 $expected_type_hr = {};
 eval {
-	is_json_type_struct($input_json, $expected_type_hr);
+	is_json_type($input_json, $expected_type_hr);
 };
 is($EVAL_ERROR, "JSON string to compare is required.\n",
 	"JSON string to compare is required.");
@@ -158,7 +159,7 @@ clean();
 $input_json = '';
 $expected_type_hr = {};
 eval {
-	is_json_type_struct($input_json, $expected_type_hr);
+	is_json_type($input_json, $expected_type_hr);
 };
 is($EVAL_ERROR, "JSON string isn't valid.\n",
 	"JSON string isn't valid.");

@@ -8,7 +8,7 @@ use Test::More 'tests' => 2;
 
 my $json_blank1 = '{}';
 my $json_blank2 = '{}';
-is_json_type($json_blank1, $json_blank2, 'Blank JSON strings.');
+cmp_json_types($json_blank1, $json_blank2, 'Blank JSON strings.');
 
 my $json_struct1 = <<'END';
 {
@@ -28,7 +28,7 @@ my $json_struct2 = <<'END';
   "string": "foo"
 }
 END
-is_json_type($json_struct1, $json_struct2, 'Structured JSON strings.');
+cmp_json_types($json_struct1, $json_struct2, 'Structured JSON strings.');
 
 # Output:
 # 1..2

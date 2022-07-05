@@ -18,7 +18,7 @@ my $json_struct_err2 = <<'END';
   "array": 1
 }
 END
-is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+cmp_json_types($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
 # Output:
 # 1..1

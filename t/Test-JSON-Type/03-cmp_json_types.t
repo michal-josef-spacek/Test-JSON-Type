@@ -10,7 +10,7 @@ use Test::NoWarnings;
 # Test.
 my $input1 = '{}';
 my $input2 = '{}';
-is_json_type($input1, $input2, 'Two same objects.');
+cmp_json_types($input1, $input2, 'Two same objects.');
 
 # Test.
 $input1 =<<'END';
@@ -23,7 +23,7 @@ $input2 =<<'END';
 	"int": 2
 }
 END
-is_json_type($input1, $input2, 'Objects with integer.');
+cmp_json_types($input1, $input2, 'Objects with integer.');
 
 # Test.
 $input1 =<<'END';
@@ -36,7 +36,7 @@ $input2 =<<'END';
 	"string": "foo"
 }
 END
-is_json_type($input1, $input2, 'Objects with string.');
+cmp_json_types($input1, $input2, 'Objects with string.');
 
 # Test.
 $input1 =<<'END';
@@ -49,7 +49,7 @@ $input2 =<<'END';
 	"bool": false
 }
 END
-is_json_type($input1, $input2, 'Objects with bool.');
+cmp_json_types($input1, $input2, 'Objects with bool.');
 
 # Test.
 $input1 =<<'END';
@@ -62,7 +62,7 @@ $input2 =<<'END';
 	"float": 1.2345
 }
 END
-is_json_type($input1, $input2, 'Objects with float.');
+cmp_json_types($input1, $input2, 'Objects with float.');
 
 # Test.
 $input1 =<<'END';
@@ -75,7 +75,7 @@ $input2 =<<'END';
 	"null": null
 }
 END
-is_json_type($input1, $input2, 'Objects with null.');
+cmp_json_types($input1, $input2, 'Objects with null.');
 
 # Test.
 $input1 =<<'END';
@@ -88,7 +88,7 @@ $input2 =<<'END';
 	"array": []
 }
 END
-is_json_type($input1, $input2, 'Objects with blank array.');
+cmp_json_types($input1, $input2, 'Objects with blank array.');
 
 # Test.
 $input1 =<<'END';
@@ -101,7 +101,7 @@ $input2 =<<'END';
 	"array": ["bar", 2, false, null, 5.678, {"key": "value"}]
 }
 END
-is_json_type($input1, $input2, 'Objects with array with values.');
+cmp_json_types($input1, $input2, 'Objects with array with values.');
 
 # Test.
 $input1 = undef;
@@ -111,7 +111,7 @@ $input2 =<<'END';
 }
 END
 eval {
-	is_json_type($input1, $input2);
+	cmp_json_types($input1, $input2);
 };
 is($EVAL_ERROR, "JSON string to compare is required.\n",
 	"JSON string to compare is required.");
@@ -125,7 +125,7 @@ $input1 =<<'END';
 END
 $input2 = undef;
 eval {
-	is_json_type($input1, $input2);
+	cmp_json_types($input1, $input2);
 };
 is($EVAL_ERROR, "Expected JSON string to compare is required.\n",
 	"Expected JSON string to compare is required.");
@@ -139,7 +139,7 @@ $input2 =<<'END';
 }
 END
 eval {
-	is_json_type($input1, $input2);
+	cmp_json_types($input1, $input2);
 };
 is($EVAL_ERROR, "JSON string isn't valid.\n",
 	"JSON string isn't valid.");
@@ -153,7 +153,7 @@ $input1 =<<'END';
 END
 $input2 = '';
 eval {
-	is_json_type($input1, $input2);
+	cmp_json_types($input1, $input2);
 };
 is($EVAL_ERROR, "Expected JSON string isn't valid.\n",
 	"Expected JSON string isn't valid.");

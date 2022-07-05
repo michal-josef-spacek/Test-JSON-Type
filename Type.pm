@@ -11,11 +11,11 @@ use Error::Pure qw(err);
 use Readonly;
 use Test::Differences qw(eq_or_diff);
 
-Readonly::Array our @EXPORT => qw(is_json_type is_json_type_struct);
+Readonly::Array our @EXPORT => qw(cmp_json_types is_json_type);
 
 our $VERSION = 0.03;
 
-sub is_json_type {
+sub cmp_json_types {
 	my ($json, $json_expected, $test_name) = @_;
 
 	if (! defined $json) {
@@ -53,7 +53,7 @@ sub is_json_type {
 	return eq_or_diff($type_hr, $type_expected_hr, $test_name);
 }
 
-sub is_json_type_struct {
+sub is_json_type {
 	my ($json, $type_expected_hr, $test_name) = @_;
 
 	if (! defined $json) {
@@ -152,14 +152,14 @@ Test::JSON::Type - Test JSON data with types.
 
  use Test::JSON::Type;
 
- is_json_type($json, $json_expected, $test_name);
- is_json_type_struct($json, $expected_type_hr, $test_name);
+ cmp_json_types($json, $json_expected, $test_name);
+ is_json_type($json, $expected_type_hr, $test_name);
 
 =head1 SUBROUTINES
 
-=head2 C<is_json_type>
+=head2 C<cmp_json_types>
 
- is_json_type($json, $json_expected, $test_name);
+ cmp_json_types($json, $json_expected, $test_name);
 
 This decodes C<$json> and C<$json_expected> JSON strings to Perl structure and
 return data type structure defined by L<Cpanel::JSON::XS::Type>.
@@ -168,9 +168,9 @@ And compare these structures, if are same.
 Result is success or failure of this comparison. In case of failure print
 difference in test.
 
-=head2 C<is_json_type_struct>
+=head2 C<is_json_type>
 
- is_json_type_struct($json, $expected_type_hr, $test_name);
+ is_json_type($json, $expected_type_hr, $test_name);
 
 This decoded C<$json> JSON string to Perl structure and return data type
 structure defined by L<Cpanel::JSON::XS::Type>.
@@ -181,14 +181,14 @@ difference in test.
 
 =head1 ERRORS
 
- is_json_type():
+ cmp_json_types():
          JSON string isn't valid.
                  Error: %s
          JSON string to compare is required.
          Expected JSON string isn't valid.
                  Error: %s
          Expected JSON string to compare is required.
- is_json_type_struct():
+ is_json_type():
          JSON string isn't valid.
                  Error: %s
          JSON string to compare is required.
@@ -203,7 +203,7 @@ difference in test.
 
  my $json_blank1 = '{}';
  my $json_blank2 = '{}';
- is_json_type($json_blank1, $json_blank2, 'Blank JSON strings.');
+ cmp_json_types($json_blank1, $json_blank2, 'Blank JSON strings.');
 
  my $json_struct1 = <<'END';
  {
@@ -223,7 +223,7 @@ difference in test.
    "string": "foo"
  }
  END
- is_json_type($json_struct1, $json_struct2, 'Structured JSON strings.');
+ cmp_json_types($json_struct1, $json_struct2, 'Structured JSON strings.');
 
  # Output:
  # 1..2
@@ -250,7 +250,7 @@ difference in test.
    "string": 1
  }
  END
- is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+ cmp_json_types($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
  # Output:
  # 1..1
@@ -287,7 +287,7 @@ difference in test.
    "array": 1
  }
  END
- is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+ cmp_json_types($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
  # Output:
  # 1..1
