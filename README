@@ -152,6 +152,78 @@ EXAMPLE3
      # # +----+--------------------------+----+-----------------------------+
      # # Looks like you failed 1 test of 1.
 
+EXAMPLE4
+     use strict;
+     use warnings;
+
+     use Cpanel::JSON::XS::Type;
+     use Test::JSON::Type;
+     use Test::More 'tests' => 2;
+
+     my $json_struct1 = <<'END';
+     {
+       "bool": true,
+       "float": 0.23,
+       "int": 1,
+       "null": null,
+       "string": "bar"
+     }
+     END
+     my $json_struct2 = <<'END';
+     {
+       "bool": false,
+       "float": 1.23,
+       "int": 2,
+       "null": null,
+       "string": "foo"
+     }
+     END
+     my $expected_type_hr = {
+       'bool' => JSON_TYPE_BOOL,
+       'float' => JSON_TYPE_FLOAT,
+       'int' => JSON_TYPE_INT,
+       'null' => JSON_TYPE_NULL,
+       'string' => JSON_TYPE_STRING,
+     };
+     is_json_type($json_struct1, $expected_type_hr, 'Test JSON type #1.');
+     is_json_type($json_struct2, $expected_type_hr, 'Test JSON type #2.');
+
+     # Output:
+     # 1..2
+     # ok 1 - Test JSON type \#1.
+     # ok 2 - Test JSON type \#2.
+
+EXAMPLE5
+     use strict;
+     use warnings;
+
+     use Cpanel::JSON::XS::Type;
+     use Test::JSON::Type;
+     use Test::More 'tests' => 2;
+
+     my $json_struct = <<'END';
+     {
+       "array": [1,2,3]
+     }
+     END
+     my $expected_type1_hr = {
+       'array' => json_type_arrayof(JSON_TYPE_INT),
+     };
+     my $expected_type2_hr = {
+       'array' => [
+         JSON_TYPE_INT,
+         JSON_TYPE_INT,
+         JSON_TYPE_INT,
+       ],
+     };
+     is_json_type($json_struct, $expected_type1_hr, 'Test JSON type (multiple integers).');
+     is_json_type($json_struct, $expected_type2_hr, 'Test JSON type (three integers)');
+
+     # Output:
+     # 1..2
+     # ok 1 - Test JSON type (multiple integers).
+     # ok 2 - Test JSON type (three integers)
+
 DEPENDENCIES
     Cpanel::JSON::XS, Cpanel::JSON::XS::Type, English, Error::Pure,
     Readonly, Test::Builder::Module, Test::Differences.

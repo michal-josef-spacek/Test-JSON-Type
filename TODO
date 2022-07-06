@@ -1,7 +1,6 @@
 TODO
 ====
 4. Add tests for parsing errors.
-5. Add example for is_json_type to doc
 6.
 
 Applied
@@ -15,3 +14,6 @@ OK [20220704] skim
 
 2. Tests.
 OK [20220704] skim
+
+5. Add example for is_json_type to doc
+OK [20220706] skim
