@@ -1,5 +1,6 @@
 0.04
  - Add example for is_json_type() to doc.
+ - Regen README file.
 
 0.03 2022-07-06T00:47:32+02:00
  [API change]

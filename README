@@ -4,12 +4,12 @@ NAME
 SYNOPSIS
      use Test::JSON::Type;
 
-     is_json_type($json, $json_expected, $test_name);
-     is_json_type_struct($json, $expected_type_hr, $test_name);
+     cmp_json_types($json, $json_expected, $test_name);
+     is_json_type($json, $expected_type_hr, $test_name);
 
 SUBROUTINES
-  "is_json_type"
-     is_json_type($json, $json_expected, $test_name);
+  "cmp_json_types"
+     cmp_json_types($json, $json_expected, $test_name);
 
     This decodes $json and $json_expected JSON strings to Perl structure and
     return data type structure defined by Cpanel::JSON::XS::Type. And
@@ -18,8 +18,8 @@ SUBROUTINES
     Result is success or failure of this comparison. In case of failure
     print difference in test.
 
-  "is_json_type_struct"
-     is_json_type_struct($json, $expected_type_hr, $test_name);
+  "is_json_type"
+     is_json_type($json, $expected_type_hr, $test_name);
 
     This decoded $json JSON string to Perl structure and return data type
     structure defined by Cpanel::JSON::XS::Type. Compare this structure with
@@ -29,14 +29,14 @@ SUBROUTINES
     print difference in test.
 
 ERRORS
-     is_json_type():
+     cmp_json_types():
              JSON string isn't valid.
                      Error: %s
              JSON string to compare is required.
              Expected JSON string isn't valid.
                      Error: %s
              Expected JSON string to compare is required.
-     is_json_type_struct():
+     is_json_type():
              JSON string isn't valid.
                      Error: %s
              JSON string to compare is required.
@@ -50,7 +50,7 @@ EXAMPLE1
 
      my $json_blank1 = '{}';
      my $json_blank2 = '{}';
-     is_json_type($json_blank1, $json_blank2, 'Blank JSON strings.');
+     cmp_json_types($json_blank1, $json_blank2, 'Blank JSON strings.');
 
      my $json_struct1 = <<'END';
      {
@@ -70,7 +70,7 @@ EXAMPLE1
        "string": "foo"
      }
      END
-     is_json_type($json_struct1, $json_struct2, 'Structured JSON strings.');
+     cmp_json_types($json_struct1, $json_struct2, 'Structured JSON strings.');
 
      # Output:
      # 1..2
@@ -96,7 +96,7 @@ EXAMPLE2
        "string": 1
      }
      END
-     is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+     cmp_json_types($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
      # Output:
      # 1..1
@@ -132,7 +132,7 @@ EXAMPLE3
        "array": 1
      }
      END
-     is_json_type($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
+     cmp_json_types($json_struct_err1, $json_struct_err2, 'Structured JSON strings with error.');
 
      # Output:
      # 1..1
