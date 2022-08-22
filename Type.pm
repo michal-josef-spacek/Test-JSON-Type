@@ -195,6 +195,8 @@ difference in test.
 
 =head1 EXAMPLE1
 
+=for comment filename=cmp_json_types_ok.pl
+
  use strict;
  use warnings;
 
@@ -232,6 +234,8 @@ difference in test.
 
 =head1 EXAMPLE2
 
+=for comment filename=cmp_json_types_fail_int_string.pl
+
  use strict;
  use warnings;
 
@@ -268,6 +272,8 @@ difference in test.
  # # Looks like you failed 1 test of 1.
 
 =head1 EXAMPLE3
+
+=for comment filename=cmp_json_types_fail_array.pl
 
  use strict;
  use warnings;
@@ -308,6 +314,8 @@ difference in test.
  # # Looks like you failed 1 test of 1.
 
 =head1 EXAMPLE4
+
+=for comment filename=is_json_type_ok_struct.pl
 
  use strict;
  use warnings;
@@ -350,6 +358,8 @@ difference in test.
  # ok 2 - Test JSON type \#2.
 
 =head1 EXAMPLE5
+
+=for comment filename=is_json_type_ok_array.pl
 
  use strict;
  use warnings;
