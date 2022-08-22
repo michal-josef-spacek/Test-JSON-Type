@@ -85,6 +85,7 @@ sub is_json_type {
 	}
 
 	$test->ok(1, $test_name);
+
 	return 1;
 }
 
