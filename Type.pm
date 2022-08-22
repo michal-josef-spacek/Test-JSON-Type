@@ -174,9 +174,8 @@ difference in test.
 
  is_json_type($json, $expected_type_hr, $test_name);
 
-This decoded C<$json> JSON string to Perl structure and return data type
-structure defined by L<Cpanel::JSON::XS::Type>.
-Compare this structure with C<$expected_type_hr>, if are same.
+This decodes C<$json> JSON string to Perl structure and encode with expected
+JSON type C<$expected_type_hr>. Compare these two JSON strings and check if are same.
 
 Result is success or failure of this comparison. In case of failure print
 difference in test.

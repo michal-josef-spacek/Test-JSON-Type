@@ -1,4 +1,6 @@
 0.05
+ - Change intent of is_json_type(). We cannot compare types, because types
+   could be different and JSON output of encoding same.
  - Remove unused code.
  - Rename file names in examples/ dir to better names.
 
