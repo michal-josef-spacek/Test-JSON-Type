@@ -2,7 +2,8 @@ TODO
 ====
 4. Add tests for parsing errors.
 6. $type_hr is not used.
-7.
+7. Diff json and json generated with expected_type in is_json_type.
+8.
 
 Applied
 -------

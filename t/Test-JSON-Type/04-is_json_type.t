@@ -5,7 +5,7 @@ use Cpanel::JSON::XS::Type;
 use English;
 use Error::Pure::Utils qw(clean);
 use Test::JSON::Type;
-use Test::More 'tests' => 14;
+use Test::More 'tests' => 16;
 use Test::NoWarnings;
 
 # Test.
@@ -164,3 +164,38 @@ eval {
 is($EVAL_ERROR, "JSON string isn't valid.\n",
 	"JSON string isn't valid.");
 clean();
+
+SKIP: {
+	skip 'Issue with diff between two JSON strings.', 2;
+# Test.
+$input_json = <<'END';
+{
+        "string": 1
+}
+END
+$expected_type_hr = {
+	'string' => JSON_TYPE_STRING,
+};
+eval {
+	is_json_type($input_json, $expected_type_hr);
+};
+is($EVAL_ERROR, "TODO\n",
+	"TODO");
+clean();
+
+# Test.
+$input_json = <<'END';
+{
+        "string": "1"
+}
+END
+$expected_type_hr = {
+	'string' => JSON_TYPE_INT,
+};
+eval {
+	is_json_type($input_json, $expected_type_hr);
+};
+is($EVAL_ERROR, "TODO\n",
+	"TODO");
+clean();
+};

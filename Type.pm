@@ -75,7 +75,7 @@ sub is_json_type {
 	_readable_types($type_hr);
 
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
-	eval {
+	my $expected_json = eval {
 		$json_obj->encode($json_hr, $type_expected_hr);
 	};
 	if ($EVAL_ERROR) {
@@ -83,6 +83,9 @@ sub is_json_type {
 		$test->diag('Error: '.$EVAL_ERROR);
 		return;
 	}
+
+	# Compare original JSON and encoded.
+	# TODO $json and $expected_json
 
 	$test->ok(1, $test_name);
 
