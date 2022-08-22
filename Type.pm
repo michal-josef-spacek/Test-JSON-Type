@@ -63,16 +63,14 @@ sub is_json_type {
 	my $test = __PACKAGE__->builder;
 	my $json_obj = Cpanel::JSON::XS->new;
 
-	my $type_hr;
 	my $json_hr = eval {
-		$json_obj->decode($json, $type_hr);
+		$json_obj->decode($json);
 	};
 	if ($EVAL_ERROR) {
 		err "JSON string isn't valid.",
 			'Error', $EVAL_ERROR,
 		;
 	}
-	_readable_types($type_hr);
 
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
 	my $expected_json = eval {

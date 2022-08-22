@@ -1,7 +1,6 @@
 TODO
 ====
 4. Add tests for parsing errors.
-6. $type_hr is not used.
 7. Diff json and json generated with expected_type in is_json_type.
 8.
 
@@ -19,3 +18,6 @@ OK [20220704] skim
 
 5. Add example for is_json_type to doc
 OK [20220706] skim
+
+6. $type_hr is not used.
+OK [20220822] skim
