@@ -235,6 +235,9 @@ SEE ALSO
     Test::JSON::More
         JSON Test Utility
 
+    Test::Deep::JType
+        Test::Deep helpers for JSON::Typist data
+
 REPOSITORY
     <https://github.com/michal-josef-spacek/Test-JSON-Type>
 

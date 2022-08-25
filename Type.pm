@@ -414,6 +414,10 @@ Test JSON data
 
 JSON Test Utility
 
+=item L<Test::Deep::JType>
+
+Test::Deep helpers for JSON::Typist data
+
 =back
 
 =head1 REPOSITORY
