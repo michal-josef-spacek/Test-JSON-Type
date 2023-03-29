@@ -2,7 +2,7 @@ TODO
 ====
 4. Add tests for parsing errors.
 7. Diff json and json generated with expected_type in is_json_type.
-8. Simplify _readable_types() errors are not possible probrably
+8. Simplify _readable_types(). Errors are not possible probably.
 9.
 
 Applied
