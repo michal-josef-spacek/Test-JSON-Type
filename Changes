@@ -2,6 +2,7 @@
  - Add Test::Deep::JType to SEE ALSO section in doc.
  - Change intent of is_json_type(). We cannot compare types, because types
    could be different and JSON output of encoding same.
+ - Improve cmp_json_types_ok.pl example by adding of structure.
  - Remove unused code.
  - Rename file names in examples/ dir to better names.
  - Update copyright years.

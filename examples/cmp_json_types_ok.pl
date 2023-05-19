@@ -16,7 +16,10 @@ my $json_struct1 = <<'END';
   "float": 0.23,
   "int": 1,
   "null": null,
-  "string": "bar"
+  "string": "bar",
+  "struct": {
+    "string": "foo"
+  }
 }
 END
 my $json_struct2 = <<'END';
@@ -25,7 +28,10 @@ my $json_struct2 = <<'END';
   "float": 1.23,
   "int": 2,
   "null": null,
-  "string": "foo"
+  "string": "foo",
+  "struct": {
+    "string": "bar"
+  }
 }
 END
 cmp_json_types($json_struct1, $json_struct2, 'Structured JSON strings.');
