@@ -337,7 +337,10 @@ difference in test.
    "float": 0.23,
    "int": 1,
    "null": null,
-   "string": "bar"
+   "string": "bar",
+   "struct": {
+     "string": "foo"
+   }
  }
  END
  my $json_struct2 = <<'END';
@@ -355,6 +358,9 @@ difference in test.
    'int' => JSON_TYPE_INT,
    'null' => JSON_TYPE_NULL,
    'string' => JSON_TYPE_STRING,
+   'struct' => {
+     'string' => JSON_TYPE_STRING,
+   },
  };
  is_json_type($json_struct1, $expected_type_hr, 'Test JSON type #1.');
  is_json_type($json_struct2, $expected_type_hr, 'Test JSON type #2.');
